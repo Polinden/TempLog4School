@@ -26,7 +26,7 @@ even on Raspbery Pi 4
 ## IT COULD HELP
 - You to learn:
   - Python & Django
-  - Cellery
+  - Celery
   - JavaScript
   - Webpack
   - Postgres
