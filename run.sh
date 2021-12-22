@@ -9,6 +9,6 @@ else
    echo "Install docker first!"
 fi
 else 
-   echo "Install docker first!"
+   echo "Install git first!"
 fi
 
