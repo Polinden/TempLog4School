@@ -1,0 +1,21 @@
+name: SSH Deploy
+
+on:
+  push:
+    branches: main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: deploy1
+    steps:
+      - uses: actions/checkout@v2
+      - name: ssh deploy
+        uses: easingthemes/ssh-deploy@v2.1.4
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.FOR_DEPLOY }}
+          REMOTE_HOST: 46.175.146.66
+          REMOTE_USER: root
+          REMOTE_PORT: 22
+          SOURCE: .
+          TARGET: ~/4dump
