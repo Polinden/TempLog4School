@@ -2,7 +2,7 @@ name: API Test
 
 on:
   workflow_run:
-    workflows: ["SSH Deploy"]
+    workflows: ["Unfold deployed"]
     types:
       - completed
 
