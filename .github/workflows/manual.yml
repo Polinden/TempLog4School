@@ -20,7 +20,5 @@ jobs:
         key: ${{ secrets.FOR_DEPLOY }}
         port: 22
         script: |
-          export API_W=${{ secrets.WEATHER_API }} 
-          export DJ_SITE=${{ secrets.WEATHER_DOMAIN }} 
           cd  ~/4deploy
-          ./run4docker
+          export API_W=${{ secrets.WEATHER_API }}; export DJ_SITE=${{ secrets.WEATHER_DOMAIN }}; ./run4docker
