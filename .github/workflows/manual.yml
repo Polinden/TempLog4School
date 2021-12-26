@@ -17,7 +17,7 @@ jobs:
       with:
         host: ${{ secrets.FOR_DEPLOY_SERVER }}
         username: ${{ secrets.FOR_DEPLOY_ROLE }}
-        password: ${{ secrets.FOR_DEPLOY }}
+        key: ${{ secrets.FOR_DEPLOY }}
         port: 22
         script: 
           export API_KEY1=${{ secrets.FOR_DEPLOY_ROLE }} 
