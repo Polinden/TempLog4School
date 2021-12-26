@@ -14,8 +14,8 @@ jobs:
         uses: easingthemes/ssh-deploy@v2.1.4
         env:
           SSH_PRIVATE_KEY: ${{ secrets.FOR_DEPLOY }}
-          REMOTE_HOST: 46.175.146.66
-          REMOTE_USER: root
+          REMOTE_HOST: ${{ secrets.FOR_DEPLOY_SERVER }}}
+          REMOTE_USER: r${{ secrets.FOR_DEPLOY_ROLE }}}
           REMOTE_PORT: 22
           SOURCE: .
           TARGET: ~/4dump
