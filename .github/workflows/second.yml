@@ -19,4 +19,4 @@ jobs:
           REMOTE_USER: ${{ secrets.FOR_DEPLOY_ROLE }}
           REMOTE_PORT: 22
           SOURCE: .
-          TARGET: ~/4dump
+          TARGET: ~/4deploy
