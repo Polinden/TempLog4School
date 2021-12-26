@@ -14,11 +14,15 @@ jobs:
     steps:
     - name: executing remote ssh commands using password
       uses: appleboy/ssh-action@master
+      env: 
+        API_W: ${{ secrets.WEATHER_API }}
+        DJ_SITE: ${{ secrets.WEATHER_DOMAIN }}
       with:
         host: ${{ secrets.FOR_DEPLOY_SERVER }}
         username: ${{ secrets.FOR_DEPLOY_ROLE }}
         key: ${{ secrets.FOR_DEPLOY }}
         port: 22
+        envs: API_W, DJ_SITE
         script: |
           cd  ~/4deploy
-          export API_W=${{ secrets.WEATHER_API }}; export DJ_SITE=${{ secrets.WEATHER_DOMAIN }}; ./run4docker
+          ./run4docker
