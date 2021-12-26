@@ -7,7 +7,7 @@
 
 #prepare envvars
 [ ! -z "${DJ_SITE}" ] || export DJ_SITE="mishogoda.kiev.ua"
-[ ! -z "${API_W}" ]   || export API_W=export API_W="https://api.openweathermap.org/data/2.5/weather?q=Kyiv&appid=*****&units=metric"
+[ ! -z "${API_W}" ]   || export API_W="https://api.openweathermap.org/data/2.5/weather?q=Kyiv&appid=*****&units=metric"
 [ ! -z "${DJ_IP}" ]   || export DJ_IP=`ifconfig | sed -En 's/127.0.0.1//;s/.*inet (addr:)?(([0-9]*\.){3}[0-9]*).*/\2/p' | tail -n1`
 
 #clearing space
