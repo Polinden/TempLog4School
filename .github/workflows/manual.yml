@@ -18,7 +18,7 @@ jobs:
         API_KEY: ${{ secrets.FOR_DEPLOY_ROLE }}
       with:
         host: ${{ secrets.FOR_DEPLOY_SERVER }}}
-        username: ${{ secrets.FOR_DEPLOY_ROLE }}}
-        password: ${{ secrets.FOR_DEPLOY }}}
+        username: ${{ secrets.FOR_DEPLOY_ROLE }}
+        password: ${{ secrets.FOR_DEPLOY }}
         port: 22
         script: "export API_KEY1=$env:SUPER_SECRET; touch /home/234.ha; echo $API_KEY1>/home/234.ha"
