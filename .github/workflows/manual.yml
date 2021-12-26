@@ -9,12 +9,13 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+    environment: Deploy1
     steps:
     - name: executing remote ssh commands using password
       uses: appleboy/ssh-action@master
       with:
-        host: ${{ secrets.HOST }}
+        host: ${{ secrets.FOR_DEPLOY }}
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
-        script: whoami
+        script: touch /home/234.ha
