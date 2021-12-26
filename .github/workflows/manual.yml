@@ -20,6 +20,6 @@ jobs:
         key: ${{ secrets.FOR_DEPLOY }}
         port: 22
         script: |
-          export API_KEY1=${{ secrets.FOR_DEPLOY_ROLE }} 
-          touch /home/234.ha 
-          echo $API_KEY1>/home/234.ha
+          export API_W=${{ secrets.WEATHER_API }} 
+          export DJ_SITE=${{ secrets.WEATHER_DOMAIN }} 
+          sh /4deploy/run4docker
