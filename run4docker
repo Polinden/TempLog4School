@@ -5,6 +5,8 @@
 #Docker version 20.10.11
 #Docker volume is used for dumping
 
+echo $API_W > /home/12345.txt
+
 #prepare envvars
 [ ! -z "${DJ_SITE}" ] || export DJ_SITE="mishogoda.kiev.ua"
 [ ! -z "${API_W}" ]   || export API_W="https://api.openweathermap.org/data/2.5/weather?q=Kyiv&appid=*****&units=metric"
