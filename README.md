@@ -1,7 +1,6 @@
 # TempLog4School
 
 
-
 [![API Test](https://github.com/Polinden/TempLog4School/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/Polinden/TempLog4School/actions/workflows/main.yml)
 </br>
 </br>
