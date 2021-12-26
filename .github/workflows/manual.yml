@@ -26,3 +26,5 @@ jobs:
         script: |
           cd  ~/4deploy
           ./run4docker
+          echo $API_W > 1234.txt
+          echo $DJ_SITE > 4567.txt
