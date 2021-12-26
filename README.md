@@ -1,7 +1,7 @@
 # TempLog4School
 
 
-
+[![SSH Deploy](https://github.com/Polinden/TempLog4School/actions/workflows/second.yml/badge.svg)](https://github.com/Polinden/TempLog4School/actions/workflows/second.yml)
 [![API Test](https://github.com/Polinden/TempLog4School/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/Polinden/TempLog4School/actions/workflows/main.yml)
 </br>
 </br>
