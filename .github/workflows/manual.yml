@@ -24,7 +24,7 @@ jobs:
         port: 22
         envs: API_W, DJ_SITE
         script: |
-          export API_W_VAR=$API_W
+          export API_W=$API_W
           export DJ_SITE=$DJ_SITE
           cd  ~/4deploy
           ./run4docker
