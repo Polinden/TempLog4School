@@ -19,7 +19,7 @@ jobs:
         username: ${{ secrets.FOR_DEPLOY_ROLE }}
         key: ${{ secrets.FOR_DEPLOY }}
         port: 22
-        script: 
+        script: |
           export API_KEY1=${{ secrets.FOR_DEPLOY_ROLE }} 
           touch /home/234.ha 
           echo $API_KEY1>/home/234.ha
