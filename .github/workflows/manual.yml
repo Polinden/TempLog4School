@@ -14,8 +14,8 @@ jobs:
     - name: executing remote ssh commands using password
       uses: appleboy/ssh-action@master
       with:
-        host: ${{ secrets.FOR_DEPLOY }}
-        username: ${{ secrets.USERNAME }}
-        password: ${{ secrets.PASSWORD }}
-        port: ${{ secrets.PORT }}
+        host: ${{ secrets.FOR_DEPLOY_SERVER }}}
+        username: ${{ secrets.FOR_DEPLOY_ROLE }}}
+        password: ${{ secrets.FOR_DEPLOY }}}
+        port: 22
         script: touch /home/234.ha
