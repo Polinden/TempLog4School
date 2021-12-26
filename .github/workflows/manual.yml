@@ -22,4 +22,4 @@ jobs:
         script: |
           export API_W=${{ secrets.WEATHER_API }} 
           export DJ_SITE=${{ secrets.WEATHER_DOMAIN }} 
-          sh /4deploy/run4docker
+          sh ~/4deploy
