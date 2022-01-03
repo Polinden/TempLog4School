@@ -33,9 +33,9 @@ def r_req(city):
     return -100
 
 
-def get_connection(host=HOST):
+def get_connection(host=HOST, password='leedan'):
     try:
-       return psycopg2.connect(dbname='postgres', user='postgres', password='leedan', host) 
+       return psycopg2.connect(dbname='postgres', user='postgres', password=password, host=host) 
     except Exception as e:
        print(f"db connection error {e}")
        return 0
