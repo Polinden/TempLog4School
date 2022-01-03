@@ -11,7 +11,6 @@ HOST='172.17.0.3'
 MY_TZ='EUROPE/KIEV'
 
 
-
 sql1 = ''' INSERT INTO project1_weather(updated, temp, city_id) VALUES(%s,%s,%s) '''
 sql2 = ''' SELECT id, name FROM project1_city '''
 

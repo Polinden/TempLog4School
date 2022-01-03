@@ -27,7 +27,7 @@ def connection(monkeypatch):
     import sys
     ss=sys.modules[__name__]
     monkeypatch.setattr(tasks, "get_connection", mc)
-    monkeypatch.setenv("APIWET", "https://api.openweathermap.org/data/2.5/weather?q={0}&appid=*****&units=metric")
+    monkeypatch.setenv("APIWET", "https://api.openweathermap.org/data/2.5/weather?q={0}&appid=****&units=metric")
 
 
 
