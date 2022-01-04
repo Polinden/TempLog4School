@@ -1,23 +1,28 @@
 from django.conf import settings
 from django.shortcuts import render
-from .models import Weather
+from .models import Weather, City
 from django.db.models import Avg, F, TimeField
-import json
-import datetime
-from django.utils import timezone
 from django.db.models.functions import TruncDate, TruncHour
 from django.views.decorators.cache import cache_page
 from django.core.cache.backends.base import DEFAULT_TIMEOUT
+from django.http import HttpResponseNotFound
+from django.utils import timezone
+import json
+import datetime
 import logging
 
 
 logger = logging.getLogger(__name__)
 CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
+BASE_CITY = 'Kiev'
 
 
 @cache_page(CACHE_TTL)
 def index(request):
     try:
+        ###request parsing
+        n=request.GET.get('c', BASE_CITY)
+
         dn=datetime.datetime.now().strftime('%Y-%m-%d')
         d=request.GET.get('d', dn)
         d=datetime.datetime.strptime(d, '%Y-%m-%d')
@@ -25,14 +30,17 @@ def index(request):
         d=d.replace(tzinfo=timezone.get_current_timezone())
         d=d.astimezone(timezone.utc)
 
+        ###queries
+        city=City.objects.get(name=n)
 
-        weather=Weather.objects.filter(updated__gte=(d-datetime.timedelta(days=366)), updated__lte=(d))\
+        weather=Weather.objects.filter(city=city, updated__gte=(d-datetime.timedelta(days=366)), updated__lte=(d))\
              .annotate(date=TruncDate('updated')).values('date').order_by('date').annotate(temps=Avg('temp'))
         
-        timed=Weather.objects.filter(updated__gt=(d-datetime.timedelta(days=1)), updated__lte=(d))\
+        timed=Weather.objects.filter(city=city, updated__gt=(d-datetime.timedelta(days=1)), updated__lte=(d))\
              .annotate(hour=TruncHour('updated'))\
              .values('hour').order_by('hour').annotate(temps=F('temp'))
         
+        #processing
         graphed = json.dumps({str(s['date']):round(s['temps'],2) for s in weather})
         if (len(weather)%2):
             weather=weather[1:]
@@ -42,7 +50,8 @@ def index(request):
 
         context = {'list': tabled, 'graphed':graphed, 'timed':timed}
         return render(request, 'index.html', context)
-    except Exception as e:
-        logger.warning(str(e))
-        return render(request, 'index.html', {'list':[], 'graphed':'{}', 'timed':'{}'})
 
+
+    except Exception as e:
+        logger.warning(f'request processing error {e}')
+        return return HttpResponseNotFound("Empty record")  
