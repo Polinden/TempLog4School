@@ -17,11 +17,12 @@ docker container stop redis && docker container rm redis && docker image rm redi
 docker volume rm vol_db
 
 #start the war
+docker network create --subnet=172.18.0.0/16 templognet
 docker volume create vol_db
-docker run -d --expose 6379 --ip 172.17.0.2 --restart unless-stopped --name redis redis
-docker run --name postgres --ip 172.17.0.3 -v vol_db:/vol_db --expose 5432 --restart unless-stopped -e POSTGRES_PASSWORD=leedan -d postgres
+docker run -d --expose 6379 --net templognet  --ip 172.18.0.2 --restart unless-stopped --name redis redis
+docker run --name postgres --net templognet --ip 172.18.0.3 -v vol_db:/vol_db --expose 5432 --restart unless-stopped -e POSTGRES_PASSWORD=leedan -d postgres
 
 #establish the peace
 docker build -t django .
 cat vol_db/dump.sql | docker exec -i postgres psql -U postgres
-docker run -v vol_db:/vol_db --ip 172.17.0.4 -e APIWET=$API_W -e DJA_IP=$DJ_IP -e DJA_SITE=$DJ_SITE -d --restart unless-stopped --publish 80:8080 --name django django
+docker run -v vol_db:/vol_db --net templognet --ip 172.18.0.4 -e APIWET=$API_W -e DJA_IP=$DJ_IP -e DJA_SITE=$DJ_SITE -d --restart unless-stopped --publish 80:8080 --name django django
