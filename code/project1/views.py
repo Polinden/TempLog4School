@@ -54,6 +54,7 @@ def index(request):
 
     except Exception as e:
         logger.warning(f'request processing error {e}')
+<<<<<<< HEAD
         return return HttpResponseNotFound("Empty record")  
 
 
@@ -62,3 +63,6 @@ def handler404(request, *args, **argv):
                                   context_instance=RequestContext(request))
     response.status_code = 404
     return response
+=======
+        return HttpResponseNotFound("Empty record")  
+>>>>>>> 4bad105801b90a0d3e4a07c2dde424e07d10d694
