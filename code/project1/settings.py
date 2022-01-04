@@ -99,7 +99,7 @@ DATABASES = {
         'NAME': 'postgres',
         'USER': 'postgres',
         'PASSWORD': 'leedan',
-        'HOST': '172.17.0.3',
+        'HOST': '172.18.0.3',
         'PORT': '5432',
     },
 }
@@ -161,7 +161,7 @@ LOGGING = {
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://172.17.0.2:6379/1",
+        "LOCATION": "redis://172.18.0.2:6379/1",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient"
         },

@@ -7,7 +7,7 @@ import psycopg2
 import os
 
 
-HOST='172.17.0.3'
+HOST='172.18.0.3'
 MY_TZ='EUROPE/KIEV'
 
 
