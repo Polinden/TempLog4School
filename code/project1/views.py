@@ -54,4 +54,4 @@ def index(request):
 
     except Exception as e:
         logger.warning(f'request processing error {e}')
-        return return HttpResponseNotFound("Empty record")  
+        return HttpResponseNotFound("Empty record")  
