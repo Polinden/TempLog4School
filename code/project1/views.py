@@ -5,7 +5,7 @@ from django.db.models import Avg, F, TimeField
 from django.db.models.functions import TruncDate, TruncHour
 from django.views.decorators.cache import cache_page
 from django.core.cache.backends.base import DEFAULT_TIMEOUT
-from django.http import HttpResponseNotFound
+from django.http import HttpResponseRedirect
 from django.utils import timezone
 import json
 import datetime
@@ -54,7 +54,7 @@ def index(request):
 
     except Exception as e:
         logger.warning(f'request processing error {e}')
-        return HttpResponseNotFound("Empty record")  
+        return HttpResponseRedirect("404.html")
 
 
 def handler404(request, *args, **argv):
