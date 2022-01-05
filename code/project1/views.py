@@ -34,7 +34,7 @@ def index(request):
         d=d.astimezone(timezone.utc)
 
         #session settings
-        if ('fav_city' not in request.session) or request.session['fav_city'] != n:
+        if ('fav_city' not in request.session) or request.session['fav_city'] == BASE_CITY:
             request.session['fav_city'] = n
 
         ###queries
