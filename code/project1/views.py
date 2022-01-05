@@ -24,38 +24,36 @@ BASE_CITY = getattr(settings, 'BASE_CITY', 'London')
 def index(request):
     try:
         ###no login - no choise
+        n = BASE_CITY
         if (request.user.is_authenticated):
             if 'c' in request.GET:
-                n=request.GET.get('c')
+                n = request.GET.get('c')
                 request.session['fav_city'] = n
             elif 'fav_city' in request.session:
                 n = request.session['fav_city']
-        else: n=BASE_CITY
 
         ###datetime settings
-        dn=datetime.datetime.now().strftime('%Y-%m-%d')
-        d=request.GET.get('d', dn)
-        d=datetime.datetime.strptime(d, '%Y-%m-%d')
-        d=d+datetime.timedelta(hours=23, minutes=59)
-        d=d.replace(tzinfo=timezone.get_current_timezone())
-        d=d.astimezone(timezone.utc)
-
+        dn = datetime.datetime.now().strftime('%Y-%m-%d')
+        d = request.GET.get('d', dn)
+        d = datetime.datetime.strptime(d, '%Y-%m-%d')
+        d = d+datetime.timedelta(hours=23, minutes=59)
+        d = d.replace(tzinfo=timezone.get_current_timezone())
+        d = d.astimezone(timezone.utc)
 
         ###queries
-        city=City.objects.get(name=n)
+        city = City.objects.get(name=n)
 
-        weather=Weather.objects.filter(city=city, updated__gte=(d-datetime.timedelta(days=366)), updated__lte=(d))\
-             .annotate(date=TruncDate('updated')).values('date').order_by('date').annotate(temps=Avg('temp'))
+        weather = Weather.objects.filter(city=city, updated__gte=(d-datetime.timedelta(days=366)), updated__lte=(d))\
+                .annotate(date=TruncDate('updated')).values('date').order_by('date').annotate(temps=Avg('temp'))
         
-        timed=Weather.objects.filter(city=city, updated__gt=(d-datetime.timedelta(days=1)), updated__lte=(d))\
-             .annotate(hour=TruncHour('updated'))\
-             .values('hour').order_by('hour').annotate(temps=F('temp'))
+        timed = Weather.objects.filter(city=city, updated__gt=(d-datetime.timedelta(days=1)), updated__lte=(d))\
+              .annotate(hour=TruncHour('updated'))\
+              .values('hour').order_by('hour').annotate(temps=F('temp'))
         
         ###processing
-        graphed = json.dumps({str(s['date']):round(s['temps'],2) for s in weather})
-        if (len(weather)%2):
-            weather=weather[1:]
-        tabled=list(zip(weather[len(weather)//2-1::-1], weather[:len(weather)//2-1:-1]))[::-1]        
+        graphed = json.dumps({str(s['date']):round(s['temps'], 2) for s in weather})
+        if (len(weather)%2): weather=weather[1:]
+        tabled = list(zip(weather[len(weather)//2-1::-1], weather[:len(weather)//2-1:-1]))[::-1]        
         timed = json.dumps({f'{s["hour"].hour}:00' : s['temps'] for s in timed})
 
         context = {'list': tabled, 'graphed':graphed, 'timed':timed}
@@ -64,7 +62,7 @@ def index(request):
 
     except Exception as e:
         logger.warning(f'request processing error {e}')
-        if (request.user.is_authenticated):  request.session['fav_city'] = BASE_CITY
+        if request.user.is_authenticated:  request.session['fav_city'] = BASE_CITY
         return HttpResponseRedirect("404.html")
 
 
