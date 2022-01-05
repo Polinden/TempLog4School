@@ -28,8 +28,8 @@ def index(request):
 
         #session settings
         if (request.user.is_authenticated):
-            if request.GET.get('c'):
-               request.session['fav_city'] = n
+            if 'c' in request.GET:
+                request.session['fav_city'] = n
             elif 'fav_city' in request.session:
                 n = request.session['fav_city']
 
@@ -43,7 +43,7 @@ def index(request):
 
 
         ###queries
-        city=City.objects.get(n)
+        city=City.objects.get(name=n)
 
         weather=Weather.objects.filter(city=city, updated__gte=(d-datetime.timedelta(days=366)), updated__lte=(d))\
              .annotate(date=TruncDate('updated')).values('date').order_by('date').annotate(temps=Avg('temp'))
