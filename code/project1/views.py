@@ -30,7 +30,7 @@ def index(request):
         if (request.user.is_authenticated()):
             if 'c' in request.GET:     
                request.session['fav_city'] = n
-            else if 'fav_city' in session.request:
+            elif 'fav_city' in session.request:
                 n = request.session['fav_city'] 
 
         #datetime settings
