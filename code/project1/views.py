@@ -49,6 +49,9 @@ def index(request):
         tabled=list(zip(weather[len(weather)//2-1::-1], weather[:len(weather)//2-1:-1]))[::-1]        
         timed = json.dumps({f'{s["hour"].hour}:00' : s['temps'] for s in timed})
 
+        #set session var
+        if ['fav_city'] not in request.session
+            request.session['fav_city'] = 'Kiev';
 
         context = {'list': tabled, 'graphed':graphed, 'timed':timed}
         return render(request, 'index.html', context)
