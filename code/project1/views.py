@@ -33,8 +33,12 @@ def index(request):
         d=d.replace(tzinfo=timezone.get_current_timezone())
         d=d.astimezone(timezone.utc)
 
+        #session settings
+        if ('fav_city' not in request.session) or request.session['fav_city'] != n:
+            request.session['fav_city'] = n
+
         ###queries
-        city=City.objects.get(name=n)
+        city=City.objects.get(name=request.session['fav_city'])
 
         weather=Weather.objects.filter(city=city, updated__gte=(d-datetime.timedelta(days=366)), updated__lte=(d))\
              .annotate(date=TruncDate('updated')).values('date').order_by('date').annotate(temps=Avg('temp'))
@@ -49,10 +53,6 @@ def index(request):
             weather=weather[1:]
         tabled=list(zip(weather[len(weather)//2-1::-1], weather[:len(weather)//2-1:-1]))[::-1]        
         timed = json.dumps({f'{s["hour"].hour}:00' : s['temps'] for s in timed})
-
-        #set session var
-        if 'fav_city' not in request.session:
-            request.session['fav_city'] = BASE_CITY 
 
         context = {'list': tabled, 'graphed':graphed, 'timed':timed}
         return render(request, 'index.html', context)
