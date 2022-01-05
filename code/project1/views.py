@@ -3,7 +3,7 @@ from django.shortcuts import render
 from .models import Weather, City
 from django.db.models import Avg, F, TimeField
 from django.db.models.functions import TruncDate, TruncHour
-from django.views.decorators.cache import cache_page
+from django.views.decorators.cache import cache_page, vary_on_cookie
 from django.core.cache.backends.base import DEFAULT_TIMEOUT
 from django.http import HttpResponseRedirect
 from django.utils import timezone
