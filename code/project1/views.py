@@ -65,6 +65,7 @@ def index(request):
 
     except Exception as e:
         logger.warning(f'request processing error {e}')
+        if (request.user.is_authenticated):  request.session['fav_city'] = BASE_CITY
         return HttpResponseRedirect("404.html")
 
 
