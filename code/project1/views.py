@@ -23,17 +23,16 @@ BASE_CITY = getattr(settings, 'BASE_CITY', 'London')
 @vary_on_cookie
 def index(request):
     try:
-        ###request parsing
-        n=request.GET.get('c', BASE_CITY)
-
-        #session settings
+        ###no login - no choise
         if (request.user.is_authenticated):
             if 'c' in request.GET:
+                n=request.GET.get('c')
                 request.session['fav_city'] = n
             elif 'fav_city' in request.session:
                 n = request.session['fav_city']
+        else: n=BASE_CITY
 
-        #datetime settings
+        ###datetime settings
         dn=datetime.datetime.now().strftime('%Y-%m-%d')
         d=request.GET.get('d', dn)
         d=datetime.datetime.strptime(d, '%Y-%m-%d')
@@ -52,7 +51,7 @@ def index(request):
              .annotate(hour=TruncHour('updated'))\
              .values('hour').order_by('hour').annotate(temps=F('temp'))
         
-        #processing
+        ###processing
         graphed = json.dumps({str(s['date']):round(s['temps'],2) for s in weather})
         if (len(weather)%2):
             weather=weather[1:]
@@ -72,7 +71,7 @@ def index(request):
 
 
 
-#errors
+###errors handlers
 def handler404(request, *args, **argv):
     response = render_to_response('404.html', {},
                                   context_instance=RequestContext(request))
