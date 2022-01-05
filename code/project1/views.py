@@ -26,6 +26,14 @@ def index(request):
         ###request parsing
         n=request.GET.get('c', BASE_CITY)
 
+        #session settings
+        if (request.user.is_authenticated()):
+            if 'c' in request.GET:     
+               request.session['fav_city'] = n
+            else if 'fav_city' in session.request:
+                n = request.session['fav_city'] 
+
+        #datetime settings
         dn=datetime.datetime.now().strftime('%Y-%m-%d')
         d=request.GET.get('d', dn)
         d=datetime.datetime.strptime(d, '%Y-%m-%d')
@@ -33,12 +41,9 @@ def index(request):
         d=d.replace(tzinfo=timezone.get_current_timezone())
         d=d.astimezone(timezone.utc)
 
-        #session settings
-        if ('fav_city' not in request.session) or request.session['fav_city'] == BASE_CITY:
-            request.session['fav_city'] = n
 
         ###queries
-        city=City.objects.get(name=request.session['fav_city'])
+        city=City.objects.get(n)
 
         weather=Weather.objects.filter(city=city, updated__gte=(d-datetime.timedelta(days=366)), updated__lte=(d))\
              .annotate(date=TruncDate('updated')).values('date').order_by('date').annotate(temps=Avg('temp'))
@@ -63,6 +68,10 @@ def index(request):
         return HttpResponseRedirect("404.html")
 
 
+
+
+
+#errors
 def handler404(request, *args, **argv):
     response = render_to_response('404.html', {},
                                   context_instance=RequestContext(request))
