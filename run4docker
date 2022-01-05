@@ -10,6 +10,9 @@
 [ ! -z "${API_W}" ]   || export API_W="https://api.openweathermap.org/data/2.5/weather?q={0}&appid=*****&units=metric"
 [ ! -z "${DJ_IP}" ]   || export DJ_IP=`ifconfig | sed -En 's/127.0.0.1//;s/.*inet (addr:)?(([0-9]*\.){3}[0-9]*).*/\2/p' | tail -n1`
 
+#db pass
+export PS_PA="leedan"
+
 #clearing space
 docker container stop django && docker container rm django && docker image rm django
 docker container stop postgres && docker container rm postgres && docker image rm postgres
@@ -20,9 +23,9 @@ docker volume rm vol_db
 docker network create --subnet=172.18.0.0/16 templognet
 docker volume create vol_db
 docker run -d --expose 6379 --net templognet  --ip 172.18.0.2 --restart unless-stopped --name redis redis
-docker run --name postgres --net templognet --ip 172.18.0.3 -v vol_db:/vol_db --expose 5432 --restart unless-stopped -e POSTGRES_PASSWORD=leedan -d postgres
+docker run --name postgres --net templognet --ip 172.18.0.3 -v vol_db:/vol_db --expose 5432 --restart unless-stopped -e POSTGRES_PASSWORD=$PS_PA -d postgres
 
 #establish the peace
 docker build -t django .
 cat vol_db/dump.sql | docker exec -i postgres psql -U postgres
-docker run -v vol_db:/vol_db --net templognet --ip 172.18.0.4 -e APIWET=$API_W -e DJA_IP=$DJ_IP -e DJA_SITE=$DJ_SITE -d --restart unless-stopped --publish 80:8080 --name django django
+docker run -v vol_db:/vol_db --net templognet --ip 172.18.0.4 -e PS_PASS=$PS_PA -e APIWET=$API_W -e DJA_IP=$DJ_IP -e DJA_SITE=$DJ_SITE -d --restart unless-stopped --publish 80:8080 --name django django
