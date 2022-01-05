@@ -15,7 +15,8 @@ import logging
 
 logger = logging.getLogger(__name__)
 CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
-BASE_CITY = 'Kiev'
+BASE_CITY = getattr(settings, 'BASE_CITY', 'London')
+
 
 
 @cache_page(CACHE_TTL)
@@ -50,8 +51,8 @@ def index(request):
         timed = json.dumps({f'{s["hour"].hour}:00' : s['temps'] for s in timed})
 
         #set session var
-        if ['fav_city'] not in request.session:
-            request.session['fav_city'] = 'Kiev'
+        if 'fav_city' not in request.session:
+            request.session['fav_city'] = BASE_CITY 
 
         context = {'list': tabled, 'graphed':graphed, 'timed':timed}
         return render(request, 'index.html', context)
