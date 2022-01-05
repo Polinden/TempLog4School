@@ -18,6 +18,7 @@ BASE_CITY = 'Kiev'
 
 
 @cache_page(CACHE_TTL)
+@vary_on_cookie
 def index(request):
     try:
         ###request parsing
