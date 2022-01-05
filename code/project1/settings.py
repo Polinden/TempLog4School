@@ -172,8 +172,15 @@ CACHES = {
 
 CACHE_TTL = 60 * 5
 
+
+##session control
+SESSION_ENGINE="django.contrib.sessions.backends.signed_cookies"
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False
+SESSION_COOKIE_AGE = 1209600 
+
+#login behaviour
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
-
+#my city
 BASE_CITY = 'Kiev'
