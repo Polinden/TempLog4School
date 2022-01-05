@@ -28,10 +28,10 @@ def index(request):
 
         #session settings
         if (request.user.is_authenticated):
-            if 'c' in request.GET:     
+            if 'c' in request.GET:
                request.session['fav_city'] = n
-            elif 'fav_city' in session.request:
-                n = request.session['fav_city'] 
+            elif 'fav_city' in request.session:
+                n = request.session['fav_city']
 
         #datetime settings
         dn=datetime.datetime.now().strftime('%Y-%m-%d')

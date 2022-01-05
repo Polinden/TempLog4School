@@ -32,12 +32,11 @@
 		<div class="container-fluid" style=padding-left: 2%">
 
 			{% if form.errors %}
-			<p>Your username and password didn't match. Please try again.</p>
+			<h4 style="color: red">Your username and password didn't match. Please try again.</h4>
 			{% endif %}
 
-			<h1>Log-in</h1>
-			<p>Please, use the following form to log-in:</p>
-			<form action="." method="post">
+			<h1 style="color: blue">Log-in</h1>
+				<form action="." method="post">
 				{{ form.as_p }}
 				{% csrf_token %}
 				<p><input type="submit" value="Log-in"></p>
