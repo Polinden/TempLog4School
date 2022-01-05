@@ -27,7 +27,7 @@ def index(request):
         n=request.GET.get('c', BASE_CITY)
 
         #session settings
-        if (request.user.is_authenticated()):
+        if (request.user.is_authenticated):
             if 'c' in request.GET:     
                request.session['fav_city'] = n
             elif 'fav_city' in session.request:
