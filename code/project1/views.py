@@ -52,7 +52,7 @@ def index(request):
         
         ###processing
         graphed = json.dumps({str(s['date']):round(s['temps'], 2) for s in weather})
-        if (len(weather)%2): weather=weather[1:]
+        if len(weather) % 2: weather=weather[1:]
         tabled = list(zip(weather[len(weather)//2-1::-1], weather[:len(weather)//2-1:-1]))[::-1]        
         timed = json.dumps({f'{s["hour"].hour}:00' : s['temps'] for s in timed})
 

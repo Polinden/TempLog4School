@@ -614,7 +614,7 @@ COPY public.auth_permission (id, name, content_type_id, codename) FROM stdin;
 --
 
 COPY public.auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) FROM stdin;
-1	pbkdf2_sha256$320000$QRkJe7afh9AQGRQfnSXxYL$TnfDlKb/wVi/viQcQNPNxTtUr1NpHindG/6qtyqaw/A=	2022-01-05 10:41:23.516271+00	t	wolper			prox@i.ua	t	t	2022-01-05 10:39:51.340828+00
+1	pbkdf2_sha256$320000$QRkJe7afh9AQGRQfnSXxYL$TnfDlKb/wVi/viQcQNPNxTtUr1NpHindG/6qtyqaw/A=	2022-01-05 21:38:05.314464+00	t	wolper			prox@i.ua	t	t	2022-01-05 10:39:51.340828+00
 \.
 
 
@@ -706,6 +706,7 @@ COPY public.django_session (session_key, session_data, expire_date) FROM stdin;
 COPY public.project1_city (id, name) FROM stdin;
 1	Kiev
 2	Moscow
+3	Brusyliv
 \.
 
 
@@ -891,6 +892,15 @@ COPY public.project1_weather (id, updated, temp, city_id) FROM stdin;
 168	2022-01-04 10:00:00.218589+00	6.2	1
 175	2022-01-05 06:00:00.308803+00	7.04	1
 176	2022-01-05 06:00:00.311836+00	-5.62	2
+177	2022-01-05 22:00:05.072006+00	4.7	1
+178	2022-01-05 22:00:05.077665+00	-2.55	2
+179	2022-01-05 22:00:05.078008+00	3.89	3
+180	2022-01-06 02:00:00.604016+00	4.27	1
+181	2022-01-06 02:00:00.607879+00	-0.19	2
+182	2022-01-06 02:00:00.60818+00	3.89	3
+183	2022-01-06 06:00:44.535077+00	4.15	1
+184	2022-01-06 06:00:44.542434+00	-100	2
+185	2022-01-06 06:00:44.543399+00	3.89	3
 \.
 
 
@@ -961,7 +971,7 @@ SELECT pg_catalog.setval('public.django_migrations_id_seq', 24, true);
 -- Name: project1_city_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.project1_city_id_seq', 2, true);
+SELECT pg_catalog.setval('public.project1_city_id_seq', 3, true);
 
 
 --
@@ -975,7 +985,7 @@ SELECT pg_catalog.setval('public.project1_usersity_id_seq', 1, false);
 -- Name: project1_weather_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.project1_weather_id_seq', 176, true);
+SELECT pg_catalog.setval('public.project1_weather_id_seq', 185, true);
 
 
 --

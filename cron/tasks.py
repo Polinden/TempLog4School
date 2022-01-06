@@ -75,8 +75,9 @@ def w_task(self):
     if not snt: return
     try:
        cur = conn.cursor()
-       for el in snt: 
-          cur.execute(sql1, (datetime.datetime.now(tz=pytz.timezone(MY_TZ)), el[2], el[0]))  
+       for el in snt:
+           if el[2] > -99:
+               cur.execute(sql1, (datetime.datetime.now(tz=pytz.timezone(MY_TZ)), el[2], el[0]))  
        conn.commit()
     except Exception as e:
         print(f'store in db error {e}')
