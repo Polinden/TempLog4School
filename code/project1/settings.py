@@ -22,6 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-_gdh&&2rq_=4-wn$0%1#@1$ss81y@$huxvjo&fs2uk94kc3po('
+PSQL_IP = os.environ['PS_IP']
 PSQL_PASS = os.environ['PS_PASS']
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -100,7 +101,7 @@ DATABASES = {
         'NAME': 'postgres',
         'USER': 'postgres',
         'PASSWORD': PSQL_PASS,
-        'HOST': '172.18.0.3',
+        'HOST': PSQL_IP,
         'PORT': '5432',
     },
 }

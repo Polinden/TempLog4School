@@ -28,4 +28,4 @@ docker run --name postgres --net templognet --ip 172.18.0.3 -v vol_db:/vol_db --
 #establish the peace
 docker build -t django .
 cat vol_db/dump.sql | docker exec -i postgres psql -U postgres
-docker run -v vol_db:/vol_db --net templognet --ip 172.18.0.4 -e PS_PASS=$PS_PA -e APIWET=$API_W -e DJA_IP=$DJ_IP -e DJA_SITE=$DJ_SITE -d --restart unless-stopped --publish 80:8080 --name django django
+docker run -v vol_db:/vol_db --net templognet --ip 172.18.0.4 -e PS_IP=172.18.03 -e PS_PASS=$PS_PA -e APIWET=$API_W -e DJA_IP=$DJ_IP -e DJA_SITE=$DJ_SITE -d --restart unless-stopped --publish 80:8080 --name django django

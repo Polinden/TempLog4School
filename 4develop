@@ -1,0 +1,5 @@
+export DJA_SITE='localhost'
+export DJA_IP='localhost'
+export PS_PASS='localhost'
+export PS_IP='localhost'
+export PS_IP='localhost'

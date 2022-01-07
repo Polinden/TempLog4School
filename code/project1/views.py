@@ -7,6 +7,7 @@ from django.views.decorators.cache import cache_page
 from django.views.decorators.vary import vary_on_cookie
 from django.core.cache.backends.base import DEFAULT_TIMEOUT
 from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 import json
 import datetime
@@ -66,7 +67,10 @@ def index(request):
         return HttpResponseRedirect("404.html")
 
 
-
+###city select
+@login_required
+def select(request):
+    return render(request, 'select.html', {})
 
 
 ###errors handlers
@@ -75,3 +79,10 @@ def handler404(request, *args, **argv):
                                   context_instance=RequestContext(request))
     response.status_code = 404
     return response
+
+
+
+
+
+
+
