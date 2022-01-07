@@ -614,7 +614,8 @@ COPY public.auth_permission (id, name, content_type_id, codename) FROM stdin;
 --
 
 COPY public.auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) FROM stdin;
-1	pbkdf2_sha256$320000$QRkJe7afh9AQGRQfnSXxYL$TnfDlKb/wVi/viQcQNPNxTtUr1NpHindG/6qtyqaw/A=	2022-01-05 21:38:05.314464+00	t	wolper			prox@i.ua	t	t	2022-01-05 10:39:51.340828+00
+1	pbkdf2_sha256$320000$QRkJe7afh9AQGRQfnSXxYL$TnfDlKb/wVi/viQcQNPNxTtUr1NpHindG/6qtyqaw/A=	2022-01-07 11:20:23.971526+00	t	wolper			prox@i.ua	t	t	2022-01-05 10:39:51.340828+00
+2	pbkdf2_sha256$320000$6DoTs9txhsSTjSDvOPPvpm$hlOe3CPh6HLeXRBinNjRKQ+DLEUxy4U1WFcNFbxXe/c=	2022-01-07 15:09:04.98599+00	f	deda				f	t	2022-01-07 11:20:39.386908+00
 \.
 
 
@@ -639,6 +640,7 @@ COPY public.auth_user_user_permissions (id, user_id, permission_id) FROM stdin;
 --
 
 COPY public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) FROM stdin;
+1	2022-01-07 11:20:39.677529+00	2	deda	1	[{"added": {}}]	7	1
 \.
 
 
@@ -707,6 +709,7 @@ COPY public.project1_city (id, name) FROM stdin;
 1	Kiev
 2	Moscow
 3	Brusyliv
+4	Alicante
 \.
 
 
@@ -723,6 +726,10 @@ COPY public.project1_usercity (id, city_id, user_id) FROM stdin;
 --
 
 COPY public.project1_weather (id, updated, temp, city_id) FROM stdin;
+207	2022-01-07 14:00:01.58378+00	-1.31	1
+208	2022-01-07 14:00:01.588502+00	-5.6	2
+209	2022-01-07 14:00:01.58908+00	-1.15	3
+210	2022-01-07 14:00:01.589471+00	15.41	4
 171	2022-01-04 22:00:00.399211+00	4.19	1
 172	2022-01-04 22:00:00.403887+00	-6.45	2
 173	2022-01-05 02:00:03.096835+00	5.03	1
@@ -899,8 +906,29 @@ COPY public.project1_weather (id, updated, temp, city_id) FROM stdin;
 181	2022-01-06 02:00:00.607879+00	-0.19	2
 182	2022-01-06 02:00:00.60818+00	3.89	3
 183	2022-01-06 06:00:44.535077+00	4.15	1
-184	2022-01-06 06:00:44.542434+00	-100	2
 185	2022-01-06 06:00:44.543399+00	3.89	3
+186	2022-01-06 10:00:00.7293+00	3.24	1
+187	2022-01-06 10:00:00.734174+00	0.06	2
+188	2022-01-06 10:00:00.734501+00	1.82	3
+184	2022-01-06 06:00:44.542434+00	-1.5	2
+189	2022-01-06 14:00:00.42243+00	2.99	1
+190	2022-01-06 14:00:00.42535+00	0.19	2
+191	2022-01-06 14:00:00.425619+00	2.84	3
+192	2022-01-06 18:00:00.37738+00	2.07	1
+193	2022-01-06 18:00:00.380163+00	-0.51	2
+194	2022-01-06 18:00:00.380596+00	1.78	3
+195	2022-01-06 22:00:00.665622+00	1.45	1
+196	2022-01-06 22:00:00.668942+00	0.25	2
+197	2022-01-06 22:00:00.669262+00	0.73	3
+198	2022-01-07 02:00:01.497477+00	1.39	1
+199	2022-01-07 02:00:01.500334+00	-1.43	2
+200	2022-01-07 02:00:01.500631+00	0.73	3
+201	2022-01-07 06:00:02.476113+00	-0.38	1
+202	2022-01-07 06:00:02.480924+00	-2.43	2
+203	2022-01-07 06:00:02.48132+00	-1.11	3
+204	2022-01-07 10:00:00.794743+00	-0.56	1
+205	2022-01-07 10:00:00.797695+00	-5.64	2
+206	2022-01-07 10:00:00.798008+00	-1.11	3
 \.
 
 
@@ -936,7 +964,7 @@ SELECT pg_catalog.setval('public.auth_user_groups_id_seq', 1, false);
 -- Name: auth_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.auth_user_id_seq', 1, true);
+SELECT pg_catalog.setval('public.auth_user_id_seq', 2, true);
 
 
 --
@@ -950,7 +978,7 @@ SELECT pg_catalog.setval('public.auth_user_user_permissions_id_seq', 1, false);
 -- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.django_admin_log_id_seq', 1, false);
+SELECT pg_catalog.setval('public.django_admin_log_id_seq', 1, true);
 
 
 --
@@ -971,7 +999,7 @@ SELECT pg_catalog.setval('public.django_migrations_id_seq', 24, true);
 -- Name: project1_city_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.project1_city_id_seq', 3, true);
+SELECT pg_catalog.setval('public.project1_city_id_seq', 4, true);
 
 
 --
@@ -985,7 +1013,7 @@ SELECT pg_catalog.setval('public.project1_usersity_id_seq', 1, false);
 -- Name: project1_weather_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.project1_weather_id_seq', 185, true);
+SELECT pg_catalog.setval('public.project1_weather_id_seq', 210, true);
 
 
 --

@@ -42,9 +42,9 @@
 
 					<div class="input-group">
 						<select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon">
-							<option value="Kiev" selected>Kiev</option>
-							<option value="Moscow">Moscow</option>
-							<option value="Brusyliv">Brusilov</option>
+                                                        {% for o in cnames %}
+							<option value="{{ o }}" {% if not forloop.counter0  %} selected {% endif %}> {{ o }}</option>
+							{% endfor %}
 						</select>
 						<button class="btn btn-primary" onclick="myFunction()" type="button">Go</button>
 					</div>

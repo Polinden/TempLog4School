@@ -62,7 +62,7 @@ def index(request):
 
 
     except Exception as e:
-        logger.warning(f'request processing error {e}')
+        logger.warning(f'index processing error {e}')
         if request.user.is_authenticated:  request.session['fav_city'] = BASE_CITY
         return HttpResponseRedirect("404.html")
 
@@ -70,7 +70,12 @@ def index(request):
 ###city select
 @login_required
 def select(request):
-    return render(request, 'select.html', {})
+    try:
+      cities=City.objects.order_by('name').values_list('name', flat=True).distinct()
+    except Exception as e:
+      logger.warning(f'select processing error {e}')
+      cities=[BASE_CITY] 
+    return render(request, 'select.html', {'cnames' : cities})
 
 
 ###errors handlers
