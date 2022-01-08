@@ -1,4 +1,4 @@
-# TempLog4School
+ # ![emoji_u1f328](https://user-images.githubusercontent.com/43998896/148658444-829d6689-95df-4381-864f-7d91b29c0095.png) TempLog4School
 
 
 [![SSH Deploy](https://github.com/Polinden/TempLog4School/actions/workflows/second.yml/badge.svg)](https://github.com/Polinden/TempLog4School/actions/workflows/second.yml)
