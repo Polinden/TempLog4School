@@ -2,7 +2,7 @@ from django.conf import settings
 from django.shortcuts import render
 from .models import Weather, City
 from django.db.models import Avg, F, TimeField
-from django.db.models.functions import TruncDate, TruncHour
+from django.db.models.functions import TruncDay, TruncWeek, TruncHour
 from django.views.decorators.cache import cache_page
 from django.views.decorators.vary import vary_on_cookie
 from django.core.cache.backends.base import DEFAULT_TIMEOUT
@@ -45,19 +45,25 @@ def index(request):
         city = City.objects.get(name=n)
 
         weather = Weather.objects.filter(city=city, updated__gte=(d-datetime.timedelta(days=366)), updated__lte=(d))\
-                .annotate(date=TruncDate('updated')).values('date').order_by('date').annotate(temps=Avg('temp'))
+                .annotate(date=TruncDay('updated')).values('date')\
+                .order_by('date').annotate(temps=Avg('temp'))
         
+        weeked = Weather.objects.filter(city=city, updated__gte=(d-datetime.timedelta(days=366)), updated__lte=(d))\
+                .annotate(date=TruncWeek('updated')).values('date')\
+                .order_by('date').annotate(temps=Avg('temp'))
+
         timed = Weather.objects.filter(city=city, updated__gt=(d-datetime.timedelta(days=1)), updated__lte=(d))\
               .annotate(hour=TruncHour('updated'))\
               .values('hour').order_by('hour').annotate(temps=F('temp'))
         
         ###processing
-        graphed = json.dumps({str(s['date']):round(s['temps'], 2) for s in weather})
+        dy_grap = json.dumps({str(s['date']):round(s['temps'], 2) for s in weather})
+        yr_grap = json.dumps({str(s['date']):round(s['temps'], 2) for s in weeked})
         if len(weather) % 2: weather=weather[1:]
-        tabled = list(zip(weather[len(weather)//2-1::-1], weather[:len(weather)//2-1:-1]))[::-1]        
-        timed = json.dumps({f'{s["hour"].hour}:00' : s['temps'] for s in timed})
+        tabled  = list(zip(weather[len(weather)//2-1::-1], weather[:len(weather)//2-1:-1]))[::-1]        
+        hr_grap   = json.dumps({f'{s["hour"].hour}:00' : s['temps'] for s in timed})
 
-        context = {'list': tabled, 'graphed':graphed, 'timed':timed}
+        context = {'list': tabled, 'dayed': dy_grap, 'timed': hr_grap, 'weeked': yr_grap}
         return render(request, 'index.html', context)
 
 
@@ -67,8 +73,10 @@ def index(request):
         return HttpResponseRedirect("404.html")
 
 
+
 ###city select
 @login_required
+@cache_page(CACHE_TTL)
 def select(request):
     try:
       cities=City.objects.order_by('name').values_list('name', flat=True).distinct()
@@ -76,6 +84,7 @@ def select(request):
       logger.warning(f'select processing error {e}')
       cities=[BASE_CITY] 
     return render(request, 'select.html', {'cnames' : cities})
+
 
 
 ###errors handlers
