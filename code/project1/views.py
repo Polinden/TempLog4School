@@ -44,7 +44,7 @@ def index(request):
         ###queries
         city = City.objects.get(name=n)
 
-        weather = Weather.objects.filter(city=city, updated__gte=(d-datetime.timedelta(days=366)), updated__lte=(d))\
+        weather = Weather.objects.filter(city=city, updated__gte=(d-datetime.timedelta(days=31)), updated__lte=(d))\
                 .annotate(date=TruncDay('updated')).values('date')\
                 .order_by('date').annotate(temps=Avg('temp'))
         
