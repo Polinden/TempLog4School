@@ -37,7 +37,10 @@ even on Raspbery Pi 4
   - JavaScript
   - Webpack
   - Postgres
+  - Redis
   - Docker 
+  - CI with GitHub Actions
+  - Testing with Postman
 
 - Your kids to trace the temperature (our school, in particular, reqires to keep such a log) 
 

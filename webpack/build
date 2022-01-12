@@ -1,0 +1,4 @@
+mkdir ../code/static
+mkdir ../code/static/js
+npx webpack build --mode=production && cp dist/js/*.js ../code/static/js && cp dist/js/*.js ../code/project1/static/js && cp dist/index.html ../code/project1/templates && cd ../code && vim project1/views.py && cd ../webpack
+
