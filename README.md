@@ -17,7 +17,7 @@ Make the settings in place of the asterisks:
 - OpenWeather API with api-key (if not it fails to work)
 ```bash
 export DJ_SITE="*****"
-export API_W="https://api.openweathermap.org/data/2.5/weather?q=Kyiv&appid=*****&units=metric"
+export API_W="https://api.openweathermap.org/data/2.5/weather?q=Kyiv&appid=****&units=metric"
 ```
 and just run in your terminal:
 ```bash
