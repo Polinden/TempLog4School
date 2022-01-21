@@ -63,7 +63,7 @@ def index(request):
         tabled  = list(zip(weather[len(weather)//2-1::-1], weather[:len(weather)//2-1:-1]))[::-1]        
         hr_grap   = json.dumps({f'{s["hour"].hour}:00' : s['temps'] for s in timed})
 
-        context = {'list': tabled, 'dayed': dy_grap, 'timed': hr_grap, 'weeked': yr_grap}
+        context = {'list': tabled, 'dayed': dy_grap, 'timed': hr_grap, 'weeked': yr_grap, 'defcity': BASE_CITY}
         return render(request, 'index.html', context)
 
 
